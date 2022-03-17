@@ -9,18 +9,19 @@
 <head>
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/browse.css" asp-append-version="true" />
+    <script src="~/js/browse.js"></script>
 </head>
 <body>
     <div class="text-center">
         <h1>@ViewData["Title"]</h1>
     </div>
     <hr>
-    <div class="card-cont" id="browse-container">
-         <div class="card" style="width:350px">
-            <img class="card-img-top" src="https://thiscatdoesnotexist.com" width="10">
-            <div class="card-body">TorusTestThingy</div>
-         </div>
-    </div>
+    <div class="card-cont" id="browse-container"></div>
+    <script>
+    for (var i = 0; i < 18; i++) {
+        populateBrowseCards();
+    }
+    </script>
 
 
 </body>
