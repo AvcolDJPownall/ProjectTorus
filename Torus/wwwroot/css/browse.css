@@ -1,0 +1,23 @@
+﻿
+.card-cont {
+    position: center;
+    float: right;
+    max-width: 90%;
+    margin: 10px;
+}
+
+.card-cont .card {
+  float: left;
+  width: 10%;
+  padding: 15px;
+}
+
+.card-cont .card-body {
+    text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+    .card-cont {
+        width: 10%;
+    }
+}
