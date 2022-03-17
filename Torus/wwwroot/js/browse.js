@@ -2,7 +2,7 @@
 function populateBrowseCards()
 {
     const cardcont = document.getElementById("browse-container");
-    var imageURL = "https://thiscatdoesnotexist.com";
+    var imageURL = "/img/3dassetph.png";
     var imageName = "Foobar (3D Model)";
     var newhtml = "";
 
