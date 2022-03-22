@@ -12,6 +12,11 @@
   padding: 15px;
 }
 
+.card-img-top {
+    background: url(/img/items/empty.png);
+    background-repeat: no-repeat;
+}
+
 .card-cont .card-body {
     text-align: center;
 }
