@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "name": "Donut",
+      "type": "Mesh",
+      "cover": "donut.png",
+      "cost": "750"
+    },
+    {
+      "name": "Liminal Junk",
+      "type": "Mesh",
+      "cover": "liminal_junk.png",
+      "cost": "2500"
+    },
+    {
+      "name": "Gloss w/ Normals",
+      "type": "Shader",
+      "cover": "shader_ngloss.png",
+      "cost": "1500"
+    },
+	{
+      "name": "Congruent Cheese",
+      "type": "Mesh",
+      "cover": "congruent_cheesewedge.png",
+      "cost": "2500"
+    }
+  ]
+}

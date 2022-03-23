@@ -3,18 +3,26 @@ function populateBrowseCards()
 {
     // This function randomly selects placeholder 3D assets from a pre-defined list.
     // As Torus will later feature a backend for useful asset fetching, this function is intended for frontend demonstration purposes.
-    var randomPlaceholders = ["donut.png", "liminal_junk.png", "shader_ngloss.png"];
-    var assetIndex = Math.floor(Math.random() * randomPlaceholders.length);
+    jQuery.getJSON('/json/item_placeholders.json', function (data) {
 
-    const cardcont = document.getElementById("browse-container");
-    var imageURL = "/img/items/" + randomPlaceholders[assetIndex];
-    var imageName = "Foobar (3D Model)";
-    var newhtml = "";
+        var randomPlaceholders = ["donut.png", "liminal_junk.png", "shader_ngloss.png", "congruent_cheesewedge.png"];
+        var assetIndex = Math.floor(Math.random() * randomPlaceholders.length);
 
-    newhtml += '<div class="card" style="width:350px">';
-    newhtml += `<img class="card-img-top" src="${imageURL}" width="10">`;
-    newhtml += `<hr><div class='card-body'>${imageName}</div></div>`;
-    cardcont.innerHTML += newhtml;
+        const cardcont = document.getElementById("browse-container");
+        var imageURL = "/img/items/" + randomPlaceholders[assetIndex];
+
+        const item = data.items[assetIndex];
+        var price = parseFloat(item.cost) / 100.0;
+        var imageName = item.name + " (" + item.type + ")<br>$" + price.toFixed(2);
+        var newhtml = "";
+
+        newhtml += '<div class="card" style="width:350px">';
+        newhtml += `<img class="card-img-top" src="${imageURL}" width="10">`;
+        newhtml += `<hr><div class='card-body'>${imageName}</div></div>`;
+        cardcont.innerHTML += newhtml;
+    })
+
+
 }
 
 

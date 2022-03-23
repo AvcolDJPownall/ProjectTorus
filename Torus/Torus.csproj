@@ -15,4 +15,9 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\items\" />
+    <Folder Include="wwwroot\json\" />
+  </ItemGroup>
+
 </Project>
