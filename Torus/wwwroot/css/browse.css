@@ -13,6 +13,11 @@
   padding: 0.8%;
 }
 
+.asset-search {
+    padding: 15px;
+    float: left;
+}
+
 .card-img-top {
     background: url(/img/items/empty.png);
     background-repeat: no-repeat;
