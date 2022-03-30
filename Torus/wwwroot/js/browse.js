@@ -16,7 +16,7 @@ function populateBrowseCards()
         var imageName = item.name + " (" + item.type + ")<br>$" + price.toFixed(2);
         var newhtml = "";
 
-        newhtml += '<div class="card" style="width:350px">';
+        newhtml += '<div class="card">';
         newhtml += `<img class="card-img-top" src="${imageURL}" width="10">`;
         newhtml += `<hr><div class='card-body'>${imageName}</div></div>`;
         cardcont.innerHTML += newhtml;
