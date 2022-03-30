@@ -18,3 +18,12 @@
     background-repeat: no-repeat;
     padding: 2px;
 }
+
+.card-body {
+    text-align: center;
+    font-size: 75%;
+    font-family:Calibri;
+    padding: 2px;
+    max-height: 40px;
+    min-height:40px;
+}
