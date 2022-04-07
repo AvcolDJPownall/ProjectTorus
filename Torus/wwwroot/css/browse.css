@@ -3,8 +3,15 @@
     float: right;
     max-width: 90%;
     margin: 10px;
-    display:table-column;
+    display: table-column;
+    padding-bottom: 60px;
+    font-family: Calibri;
 }
+
+.card-cont h1 {
+    color: rgb(80, 80, 80);
+}
+
 
 .card-cont .card {
   float: left;
@@ -26,6 +33,7 @@
 
 .card-body {
     text-align: center;
+    line-height:14px;
     font-size: 75%;
     font-family:Calibri;
     padding: 2px;

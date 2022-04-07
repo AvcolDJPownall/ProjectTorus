@@ -1,5 +1,5 @@
 ﻿
-function populateBrowseCards()
+function populateBrowseCards(cont_id = "")
 {
     // This function randomly selects placeholder 3D assets from a pre-defined list.
     // As Torus will later feature a backend for useful asset fetching, this function is intended for frontend demonstration purposes.
@@ -8,7 +8,7 @@ function populateBrowseCards()
         var randomPlaceholders = ["donut.png", "liminal_junk.png", "shader_ngloss.png", "congruent_cheesewedge.png"];
         var assetIndex = Math.floor(Math.random() * randomPlaceholders.length);
 
-        const cardcont = document.getElementById("browse-container");
+        const cardcont = document.getElementById(cont_id);
         var imageURL = "/img/items/" + randomPlaceholders[assetIndex];
 
         const item = data.items[assetIndex];
@@ -17,7 +17,7 @@ function populateBrowseCards()
         var newhtml = "";
 
         newhtml += '<div class="card">';
-        newhtml += `<img class="card-img-top" src="${imageURL}" width="10">`;
+        newhtml += `<a><img class="card-img-top" src="${imageURL}" width="10"></a>`;
         newhtml += `<hr><div class='card-body'>${imageName}</div></div>`;
         cardcont.innerHTML += newhtml;
     })
