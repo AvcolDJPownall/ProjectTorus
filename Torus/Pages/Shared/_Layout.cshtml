@@ -20,14 +20,12 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Browse">Browse</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Browse#personal">Personal Assets</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/Browse#artist">Artist Assets</a>
+                        <li class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">Browse</button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item text-dark" href="/Browse#personal">Personal Assets</a>
+                                <li><a class="dropdown-item text-dark" href="/Browse#artist">Artist Assets</a>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
