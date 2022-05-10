@@ -31,6 +31,9 @@
     background: url(/img/items/empty.png);
     background-blend-mode: multiply;
     background-color: #606772;
+    transform: scale(1.125);
+    transition: transform 0.15s;
+    z-index: 255;
 }
 
 .asset-search {
