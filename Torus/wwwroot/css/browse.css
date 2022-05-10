@@ -20,6 +20,19 @@
   padding: 0.8%;
 }
 
+.card:hover .card-img-top {
+  background-color:#606772;
+  background-blend-mode:multiply;
+  border-style:none;
+}
+
+.card:hover {
+    color: #fff;
+    background: url(/img/items/empty.png);
+    background-blend-mode: multiply;
+    background-color: #606772;
+}
+
 .asset-search {
     padding: 15px;
     float: left;
