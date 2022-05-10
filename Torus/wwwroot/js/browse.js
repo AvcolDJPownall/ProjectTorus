@@ -16,9 +16,9 @@ function populateBrowseCards(cont_id = "")
         var imageName = item.name + " (" + item.type + ")<br>$" + price.toFixed(2);
         var newhtml = "";
 
-        newhtml += '<div class="card">';
+        newhtml += '<button class="card">';
         newhtml += `<a><img class="card-img-top" src="${imageURL}" width="10"></a>`;
-        newhtml += `<hr><div class='card-body'>${imageName}</div></div>`;
+        newhtml += `<hr><div class='card-body'>${imageName}</div></button>`;
         cardcont.innerHTML += newhtml;
     })
 
