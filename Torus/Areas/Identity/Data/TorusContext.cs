@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Torus.Areas.Identity.Data;
+using Torus.Models;
 
 namespace Torus.Data;
 
@@ -19,4 +20,6 @@ public class TorusContext : IdentityDbContext<TorusUser>
         // For example, you can rename the ASP.NET Identity table names and more.
         // Add your customizations after calling base.OnModelCreating(builder);
     }
+
+    public DbSet<Torus.Models.TorusPost>? TorusPost { get; set; }
 }
