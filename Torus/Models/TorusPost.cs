@@ -19,7 +19,8 @@ namespace Torus.Models
 
     public class TorusPost
     {
-        public uint PostID;
+        [Key]
+        public uint PostID { get; set; }
 
         [Required]
         public string Title { get; set; } = "";
