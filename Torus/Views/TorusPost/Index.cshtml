@@ -47,7 +47,8 @@
                 @Html.DisplayFor(modelItem => item.PostType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Cost);
+                @((((double)item.Cost / 100.0f)).ToString("c2"))
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Likes)
