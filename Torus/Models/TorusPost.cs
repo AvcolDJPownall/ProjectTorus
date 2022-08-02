@@ -30,7 +30,8 @@ namespace Torus.Models
         public AssetType PostType { get; set; }
 
         [Required]
-        public long Cost { get; set; }
+        [DisplayFormat(DataFormatString = "{0:#,###.00}")]
+        public double Cost { get; set; }
 
         public uint Likes { get; set; } = 0;
         public uint Dislikes { get; set; } = 0;
