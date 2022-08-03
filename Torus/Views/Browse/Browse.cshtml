@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Torus.Models.TorusPost>
+
+@{
     ViewData["Title"] = "Browse Assets";
 }
 <!DOCTYPE html>
@@ -24,7 +26,27 @@
             <input type="search" class="form-control rounded" onsubmit="" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
         </div>
     </div>
-    <div class="card-cont" id="personal"><h1>Personal</h1></div>
+    <div class="card-cont" id="personal"><h1>Personal</h1>
+        @foreach (TorusPost item in Model)
+        {
+            //var imageURL = "/img/items/" + randomPlaceholders[assetIndex];
+            string price = item.Cost.ToString("c2");
+            var imageName = item.Title + " (" + item.PostType.ToString() + ")<br>$" + price;
+
+            string newhtml = "";
+
+            Html.Display("<button class=\"card\">");
+            Html.Display("<a><img class=\"card-img-top\" src=\"imageURL\" width=\"10\"></a>");
+            Html.Display("<hr><div class=\'card-body\'>\"imageName\"</div></button>");
+
+            newhtml += "<button class=\"card\">";
+            newhtml += "<a><img class=\"card-img-top\" src=\"imageURL\" width=\"10\"></a>";
+            newhtml += "<hr><div class=\'card-body\'>\"imageName\"</div></button>";
+            Html.Raw(newhtml);
+        }
+
+    
+    </div>
     <div class="card-cont" id="artist"><h1>Artist</h1></div>
     <script>
     for (var i = 0; i < 60; i++) {
