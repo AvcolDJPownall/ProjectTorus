@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -56,8 +57,18 @@ namespace Torus.Views.Posts
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostID,Title,Description,PostType,Cost,Likes,Dislikes")] TorusPost torusPost)
+        public async Task<IActionResult> Create([Bind("PostID,Title,Description,PostType,ImageThumbnail,Cost,Likes,Dislikes")] TorusPost torusPost, [FromForm]IFormFile ImageThumbnail)
         {
+            string path = Path.Combine(Environment.CurrentDirectory, "wwwroot/img/items");
+            string sanitizedname = "item-" + Path.GetFileNameWithoutExtension(Uri.EscapeDataString(ImageThumbnail.FileName)) + ".png";
+            using (var fileStream = new FileStream(Path.Combine(path, sanitizedname), FileMode.Create))
+            {
+                if (ImageThumbnail != null && ImageThumbnail.Length > 0)
+                {
+                    await ImageThumbnail.CopyToAsync(fileStream);
+                }
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(torusPost);

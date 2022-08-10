@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Torus.Models
 {
@@ -25,6 +26,10 @@ namespace Torus.Models
         [Required]
         public string Title { get; set; } = "";
         public string Description { get; set; } = "A Torus Asset";
+
+        [DataType(DataType.Upload)]
+        [NotMapped]
+        public IFormFile? ImageThumbnail { get; set; }
 
         [Required]
         public AssetType PostType { get; set; }
