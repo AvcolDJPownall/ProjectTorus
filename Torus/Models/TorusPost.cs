@@ -30,6 +30,7 @@ namespace Torus.Models
         [DataType(DataType.Upload)]
         [NotMapped]
         public IFormFile? ImageThumbnail { get; set; }
+        public string ImageFileGUID { get; set; } = "";
 
         [Required]
         public AssetType PostType { get; set; }

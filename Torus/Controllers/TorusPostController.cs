@@ -60,12 +60,14 @@ namespace Torus.Views.Posts
         public async Task<IActionResult> Create([Bind("PostID,Title,Description,PostType,ImageThumbnail,Cost,Likes,Dislikes")] TorusPost torusPost, [FromForm]IFormFile ImageThumbnail)
         {
             string path = Path.Combine(Environment.CurrentDirectory, "wwwroot/img/items");
-            string sanitizedname = "item-" + Path.GetFileNameWithoutExtension(Uri.EscapeDataString(ImageThumbnail.FileName)) + ".png";
+            string imageGUID = Guid.NewGuid().ToString();
+            string sanitizedname = "item-" + imageGUID + ".png";
             using (var fileStream = new FileStream(Path.Combine(path, sanitizedname), FileMode.Create))
             {
                 if (ImageThumbnail != null && ImageThumbnail.Length > 0)
                 {
                     await ImageThumbnail.CopyToAsync(fileStream);
+                    torusPost.ImageFileGUID = imageGUID;
                 }
             }
 
