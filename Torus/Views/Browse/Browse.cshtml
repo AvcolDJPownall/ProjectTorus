@@ -36,13 +36,12 @@
             string fileName = item.ImageFileGUID != "" ? string.Format("item-{0}.png", item.ImageFileGUID) : randomPlaceholders[imageIndex];
             string imageURL = "/img/items/" + fileName;
 
-
             string price = item.Cost.ToString("c2");
             string imageName = item.Title + " (" + item.PostType.ToString() + ")<br>" + price;
-            //string imageURL = "";
+            string postURL = "TorusPost/Details/" + item.PostID;
 
             newhtml += "<button class=\"card\">";
-            newhtml += String.Format("<a><img class=\"card-img-top\" src=\"{0}\" width=\"10\"></a>", imageURL);
+            newhtml += String.Format("<a href=\"{0}\"><img class=\"card-img-top\" src=\"{1}\" width=\"10\"></a>", postURL, imageURL);
             newhtml += String.Format("<hr><div class=\'card-body\'>{0}</div></button>", imageName);
         }
         @Html.Raw(newhtml)

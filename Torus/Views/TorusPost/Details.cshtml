@@ -1,15 +1,47 @@
 ﻿@model Torus.Models.TorusPost
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = (Model.Title);
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/details.css" asp-append-version="true"/>
+</head>
+<body>
+<h1>@Html.DisplayFor(model => model.Title)</h1>
 
 <div>
-    <h4>TorusPost</h4>
+    @*<h4>@Html.DisplayFor(model => model.Title)</h4>*@
     <hr />
+
+        @{
+            string[] randomPlaceholders = new string[4] { "donut.png", "liminal_junk.png", "shader_ngloss.png", "congruent_cheesewedge.png" };
+            int imageIndex = new Random().Next(0, Math.Max(randomPlaceholders.Length - 1, 0));
+            string buyAction = Model.Cost > 0.0f ? "Purchase" : "Download";
+
+
+            string fileName = Model.ImageFileGUID != "" ? string.Format("item-{0}.png", Model.ImageFileGUID) : randomPlaceholders[imageIndex];
+            string imageURL = "/img/items/" + fileName;
+        }
+
+    <div class="container mt-3">
+      <div class="card" style="width:400px">
+        <img class="card-img-top" src="@imageURL" alt="Card image" style="width:100%">
+        <div class="card-body">
+          <h4 class="card-title">@Model.Title</h4>
+          <p class="card-text">@Model.Description</p>
+          <a href="#" class="btn btn-primary">@buyAction</a>
+        </div>
+    </div>
+
+    @*<img class="post-img" src="@imageURL">*@
+
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
@@ -49,7 +81,5 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.PostID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+</body>
+</html>
