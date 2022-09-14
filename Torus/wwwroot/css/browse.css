@@ -44,6 +44,8 @@
 .card-img-top {
     background: url(/img/items/empty.png);
     background-repeat: no-repeat;
+    aspect-ratio:1/1;
+    object-fit:contain;
     padding: 2px;
 }
 
