@@ -1,0 +1,54 @@
+﻿@model Torus.Models.TorusPost
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>TorusPost</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-floating mb-3" style="padding-top:8px;">
+                @Html.TextArea("Description", "", new {@class="form-control", style="height:120px;", placeholder="My amazing Torus post", id="desc-box"})
+                <label asp-for="Description" for="desc-box" class="control-label"></label>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="padding-top:8px;">
+                <label class="control-label">Category</label>
+                @Html.DropDownList("PostType", Html.GetEnumSelectList<AssetType>(), "(Select an option)", new {@class="form-control"})
+                <span asp-validation-for="PostType" class="text-danger"></span>
+            </div>
+            <div class="input-group mb-3" style="padding-top:8px;">
+                <label class="control-label">Upload Thumbnail</label>
+                <input asp-for="ImageThumbnail" class="form-control" />
+                <span asp-validation-for="ImageThumbnail" class="text-danger"></span>
+            </div>
+            <div class="input-group mb-3" style="padding-top:8px;">
+		        <span class="input-group-text">Price: $</span>
+                <input type="text" asp-for="Cost" asp-format="{0:#,###.00}" min="0" value="0.00" class="form-control" style="width:80px;" id="pricebox" />
+                <span asp-validation-for="Cost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Torus.Models.TorusPost>
+
+@{
+    ViewData["Title"] = "Browse Assets";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/browse.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/lib/fontawesome-6.1.1-web/css/all.css" asp-append-version="true"/>
+    <script src="~/js/browse.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+    <div class="text-center">
+        <h1>@ViewData["Title"]</h1>
+    </div>
+    <hr>
+    <div class="asset-search">
+        <div class="input-group">
+           <span class="input-group-text border-0">
+                <i class="fas fa-search"></i>
+            </span>
+            <input type="search" class="form-control rounded" onsubmit="" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        </div>
+    </div>
+    <div class="card-cont" id="personal"><h1>Personal</h1>
+        @{string newhtml = "";}
+        @foreach (TorusPost item in Model)
+        {
+            string[] randomPlaceholders = new string[4] { "donut.png", "liminal_junk.png", "shader_ngloss.png", "congruent_cheesewedge.png" };
+            int imageIndex = new Random().Next(0, Math.Max(randomPlaceholders.Length - 1, 0));
+
+            string fileName = item.ImageFileGUID != "" ? string.Format("item-{0}.png", item.ImageFileGUID) : randomPlaceholders[imageIndex];
+            string imageURL = "/img/items/" + fileName;
+
+
+            string price = item.Cost.ToString("c2");
+            string imageName = item.Title + " (" + item.PostType.ToString() + ")<br>" + price;
+            //string imageURL = "";
+
+            newhtml += "<button class=\"card\">";
+            newhtml += String.Format("<a><img class=\"card-img-top\" src=\"{0}\" width=\"10\"></a>", imageURL);
+            newhtml += String.Format("<hr><div class=\'card-body\'>{0}</div></button>", imageName);
+        }
+        @Html.Raw(newhtml)
+    </div>
+    <div class="card-cont" id="artist"><h1>Artist</h1></div>
+    <script>
+    for (var i = 0; i < 60; i++) {
+        populateBrowseCards("artist");
+    }
+    </script>
+</body>
+
+@*TODO: Add pagination!*@
+
+
+</html>
