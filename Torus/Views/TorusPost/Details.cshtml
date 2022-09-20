@@ -1,4 +1,13 @@
-﻿@model Torus.Models.TorusPost
+﻿@using Microsoft.AspNetCore.Identity
+@using Torus.Areas.Identity.Data
+@model Torus.Models.TorusPost
+
+@*Here, we're using dependency injection to access user sign-in information.
+  This allows Torus to only show certain controls when the user is signed in.
+*@
+
+@inject SignInManager<TorusUser> SignInManager
+@inject UserManager<TorusUser> UserManager
 
 @{
     ViewData["Title"] = (Model.Title);
@@ -12,6 +21,7 @@
 <head>
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/details.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/lib/fontawesome-6.1.1-web/css/all.css" asp-append-version="true"/>
 </head>
 <body>
 <h1>@Html.DisplayFor(model => model.Title)</h1>
@@ -30,56 +40,67 @@
             string imageURL = "/img/items/" + fileName;
         }
 
-    <div class="container mt-3">
-      <div class="card" style="width:400px">
-        <img class="card-img-top" src="@imageURL" alt="Card image" style="width:100%">
-        <div class="card-body">
-          <h4 class="card-title">@Model.Title</h4>
-          <p class="card-text">@Model.Description</p>
-          <a href="#" class="btn btn-primary">@buyAction</a>
+    <div class="row">
+        <div class="col-md-4">
+          <div class="item-img" style="width:400px">
+            <img class="card-img-top" src="@imageURL" alt="Card image" style="width:100%">
+            <div class="item-body">
+              <h4 class="card-title">@Model.Title</h4>
+              <p class="card-text">@Model.Description</p>
+              <a href="#" class="btn btn-primary">@buyAction</a>
+            </div>
+          </div>
+        </div>
+
+        @*<img class="post-img" src="@imageURL">*@
+
+            @{
+                float ldratio = ((float)@Model.Likes / @Model.Dislikes);
+            }
+
+        <div class="col-md-6 col-md-offset-2">
+            <dl class="row">
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.PostType)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.PostType)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Cost)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Cost)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Likes)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Likes)
+                </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.Dislikes)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.Dislikes)
+                </dd>
+            </dl>
+            <div class="progress">
+                <div class="progress-bar" style="width:@ldratio%"></div>
+            </div>
+            <hr>
+            @if (!SignInManager.IsSignedIn(User))
+            {
+                <span class="btn btn-primary border-0">
+                    <i class="far fa-thumbs-up"></i> Like
+                </span>
+                <span class="btn btn-outline-secondary">
+                    <i class="far fa-thumbs-down"></i> Dislike
+                </span>
+            }
         </div>
     </div>
 
-    @*<img class="post-img" src="@imageURL">*@
-
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PostType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PostType)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Likes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Likes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Dislikes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Dislikes)
-        </dd>
-    </dl>
 </div>
 </body>
 </html>

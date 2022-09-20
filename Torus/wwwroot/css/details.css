@@ -1,20 +1,15 @@
-﻿.post-cont {
-    position: center;
-    float: right;
-    max-width: 90%;
-    margin: 10px;
-    display: table-column;
-    padding-bottom: 60px;
-    font-family: Calibri;
+﻿
+table {
+    float:left;
 }
+
 
 h1 {
     text-align:center;
 }
 
 .post-img {
-    position: center;
-    float: left;
+    float:left;
     max-width: 90%;
     margin: 10px;
     display: table-column;
