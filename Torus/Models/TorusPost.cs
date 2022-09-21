@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Torus.Models
@@ -32,7 +33,7 @@ namespace Torus.Models
         public IFormFile? ImageThumbnail { get; set; }
         public string ImageFileGUID { get; set; } = "";
 
-        [Required]
+        [Required][DisplayName("Post Type")]
         public AssetType PostType { get; set; }
 
         [Required]
