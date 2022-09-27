@@ -4,20 +4,29 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using Torus.Areas.Identity.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Torus.Data;
 using Torus.Models;
+
+
 
 namespace Torus.Views.Posts
 {
     public class TorusPostController : Controller
     {
         private readonly TorusContext _context;
+        private readonly UserManager<TorusUser> _userManager;
+        private readonly SignInManager<TorusUser> _signInManager;
 
-        public TorusPostController(TorusContext context)
+
+        public TorusPostController(TorusContext context, UserManager<TorusUser> userManager, SignInManager<TorusUser> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         // GET: TorusPost
@@ -78,6 +87,56 @@ namespace Torus.Views.Posts
                 return RedirectToAction(nameof(Index));
             }
             return View(torusPost);
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> LikePost(uint id)
+        {
+            TorusPost? torusPost = await _context.TorusPost.FindAsync(id);
+            if (!_signInManager.IsSignedIn(this.User))
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user.LikedPosts == null) user.LikedPosts = new List<TorusPost>();
+
+                //if (!user.LikedPosts.Contains(torusPost)) return Redirect("Details/" + id.ToString());
+                user.LikedPosts.Add(torusPost);
+
+                torusPost.Likes += 1;
+                await _context.SaveChangesAsync();
+                return Redirect("Details/" + id.ToString());
+            }
+            return Redirect("Details/" + id.ToString());
+        }
+
+        public async Task<IActionResult> DislikePost(uint id)
+        {
+            TorusPost? torusPost = await _context.TorusPost.FindAsync(id);
+            if (!_signInManager.IsSignedIn(this.User))
+            {
+                return Redirect("/Identity/Account/Login");
+            }
+
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user.LikedPosts == null) user.LikedPosts = new List<TorusPost>();
+
+                if (!user.LikedPosts.Contains(torusPost))
+                {
+                    user.LikedPosts.Add(torusPost);
+                }
+
+                torusPost.Dislikes += 1;
+                await _context.SaveChangesAsync();
+                return Redirect("Details/" + id.ToString());
+            }
+            return Redirect("Details/" + id.ToString());
         }
 
         // GET: TorusPost/Edit/5
