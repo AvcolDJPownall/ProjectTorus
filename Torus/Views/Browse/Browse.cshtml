@@ -23,11 +23,9 @@
            <span class="input-group-text border-0">
                 <i class="fas fa-search"></i>
             </span>
-            <input type="search" class="form-control rounded" onsubmit="" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
         </div>
     </div>
-    <div class="card-cont" id="personal"><h1>Personal</h1>
-        @{string newhtml = "";}
+    <div class="card-cont" id="personal">
         @foreach (TorusPost item in Model)
         {
             string[] randomPlaceholders = new string[4] { "donut.png", "liminal_junk.png", "shader_ngloss.png", "congruent_cheesewedge.png" };
@@ -36,22 +34,27 @@
             string fileName = item.ImageFileGUID != "" ? string.Format("item-{0}.png", item.ImageFileGUID) : randomPlaceholders[imageIndex];
             string imageURL = "/img/items/" + fileName;
 
-            string price = item.Cost.ToString("c2");
-            string imageName = item.Title + " (" + item.PostType.ToString() + ")<br>" + price;
+            string itemPrice = item.Cost.ToString("c2");
             string postURL = "TorusPost/Details/" + item.PostID;
 
-            newhtml += "<button class=\"card\">";
-            newhtml += String.Format("<a href=\"{0}\"><img class=\"card-img-top\" src=\"{1}\" width=\"10\"></a>", postURL, imageURL);
-            newhtml += String.Format("<hr><div class=\'card-body\'>{0}</div></button>", imageName);
+            <button class="card">
+                <a asp-controller="TorusPost" asp-action="Details" asp-route-id="@item.PostID">
+                    <img class="card-img-top" src="@imageURL" width="10">
+                    <hr>
+                     </a>
+                    <div style="align-content:center;overflow:hidden;" class="card-body">
+                        <p>@item.Title</p>
+                    </div>
+                    @itemPrice
+            </button>
         }
-        @Html.Raw(newhtml)
     </div>
-    <div class="card-cont" id="artist"><h1>Artist</h1></div>
+    @*<div class="card-cont" id="artist"><h1>Artist</h1></div>
     <script>
     for (var i = 0; i < 60; i++) {
         populateBrowseCards("artist");
     }
-    </script>
+    </script>*@
 </body>
 
 @*TODO: Add pagination!*@

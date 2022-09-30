@@ -6,6 +6,7 @@
     display: table-column;
     padding-bottom: 60px;
     font-family: Calibri;
+    overflow:hidden;
 }
 
 .card-cont h1 {
@@ -51,10 +52,15 @@
 
 .card-body {
     text-align: center;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    overflow:hidden;
     line-height:14px;
-    font-size: 75%;
+    line-clamp:1;
+    -webkit-line-clamp:1;
+    -webkit-box-orient:vertical;
+    font-size: 110%;
     font-family:Calibri;
     padding: 2px;
-    max-height: 40px;
     min-height:40px;
 }
