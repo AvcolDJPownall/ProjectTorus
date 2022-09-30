@@ -42,6 +42,9 @@ namespace Torus.Models
 
         public uint Likes { get; set; } = 0;
         public uint Dislikes { get; set; } = 0;
+        [Required]
+        [DisplayName("Page Views")]
+        public uint PageViews { get; set; } = 0;
 
 
         ICollection<TorusTag>? Tags;
