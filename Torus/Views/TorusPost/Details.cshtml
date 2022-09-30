@@ -14,7 +14,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
 <!DOCTYPE html>
 
 <html>
@@ -55,6 +54,17 @@
         @*<img class="post-img" src="@imageURL">*@
 
             @{
+                TorusUser tuser = await UserManager.GetUserAsync(User);
+
+                bool likestate = false;
+                bool dislikestate = false;
+
+                if (SignInManager.IsSignedIn(User))
+                {
+                    if (tuser.LikedPosts != null) likestate = tuser.LikedPosts.Contains(Model);
+                    if (tuser.DiskedPosts != null) dislikestate = tuser.DiskedPosts.Contains(Model);
+                }
+                
                 float ldratio = (((float)@Model.Likes + 1.0f) - (@Model.Dislikes + 1.0f));
                 float ldpercent = ldratio / (@Model.Likes + Model.Dislikes) * 100.0f;
             }
@@ -85,6 +95,12 @@
                 <dd class = "col-sm-10">
                     @Html.DisplayFor(model => model.Dislikes)
                 </dd>
+                <dt class = "col-sm-2">
+                    @Html.DisplayNameFor(model => model.PageViews)
+                </dt>
+                <dd class = "col-sm-10">
+                    @Html.DisplayFor(model => model.PageViews)
+                </dd>
             </dl>
             <div class="progress">
                 <div class="progress-bar" style="width:@ldpercent%"></div>
@@ -92,10 +108,13 @@
             <hr>
             @if (SignInManager.IsSignedIn(User))
             {
-                <a href="~/TorusPost/LikePost?id=@Model.PostID" class="btn btn-primary border-0">
+                string btnattrib = likestate ? "disabled" : "";
+                <a href="~/TorusPost/LikePost?id=@Model.PostID" class="btn btn-primary border-0 @btnattrib">
                     <i class="far fa-thumbs-up"></i> Like
+
                 </a>
-                <a href="~/TorusPost/DislikePost?id=@Model.PostID" class="btn btn-outline-secondary">
+                btnattrib = dislikestate ? "disabled" : "";
+                <a href="~/TorusPost/DislikePost?id=@Model.PostID" class="btn btn-outline-secondary @btnattrib">
                     <i class="far fa-thumbs-down"></i> Dislike
                 </a>
             }

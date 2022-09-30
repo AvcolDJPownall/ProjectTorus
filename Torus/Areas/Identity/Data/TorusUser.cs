@@ -13,5 +13,10 @@ public class TorusUser : IdentityUser
     public AssetType ArtistType { get; set; } = 0;
     public long Balance { get; set; }
     public string? Bio { get; set; }
+
+    public ICollection<TorusPost>? LikedPosts;
+    public ICollection<TorusPost>? DiskedPosts;
+    public ICollection<TorusPost>? ItemCart;
+
 }
 

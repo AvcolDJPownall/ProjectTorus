@@ -52,6 +52,8 @@ namespace Torus.Views.Posts
                 return NotFound();
             }
 
+            torusPost.PageViews += 1;
+
             return View(torusPost);
         }
 
@@ -89,8 +91,6 @@ namespace Torus.Views.Posts
             return View(torusPost);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> LikePost(uint id)
         {
             TorusPost? torusPost = await _context.TorusPost.FindAsync(id);
@@ -103,8 +103,13 @@ namespace Torus.Views.Posts
             {
                 var user = await _userManager.GetUserAsync(User);
                 if (user.LikedPosts == null) user.LikedPosts = new List<TorusPost>();
+                if (user.DiskedPosts == null) user.DiskedPosts = new List<TorusPost>();
+
 
                 //if (!user.LikedPosts.Contains(torusPost)) return Redirect("Details/" + id.ToString());
+
+                if (user.LikedPosts.Contains(torusPost)) return Redirect("Details/" + id.ToString());
+                user.DiskedPosts.Remove(torusPost);
                 user.LikedPosts.Add(torusPost);
 
                 torusPost.Likes += 1;
@@ -122,15 +127,18 @@ namespace Torus.Views.Posts
                 return Redirect("/Identity/Account/Login");
             }
 
+
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
                 if (user.LikedPosts == null) user.LikedPosts = new List<TorusPost>();
+                if (user.DiskedPosts == null) user.DiskedPosts = new List<TorusPost>();
 
-                if (!user.LikedPosts.Contains(torusPost))
-                {
-                    user.LikedPosts.Add(torusPost);
-                }
+
+                if (user.DiskedPosts.Contains(torusPost)) return Redirect("Details/" + id.ToString());
+                if (user.LikedPosts.Contains(torusPost)) user.LikedPosts.Remove(torusPost);
+
+                user.DiskedPosts.Add(torusPost);
 
                 torusPost.Dislikes += 1;
                 await _context.SaveChangesAsync();
