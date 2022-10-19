@@ -14,6 +14,8 @@ builder.Services.AddDefaultIdentity<TorusUser>(options => options.SignIn.Require
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<TorusInitializer>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +29,16 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+void SeedTorusDB()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var context = scope.ServiceProvider.GetRequiredService<TorusContext>();
+        var torusInit = scope.ServiceProvider.GetRequiredService<TorusInitializer>();
+        torusInit.SeedDatabase(context);
+    }
+}
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -36,4 +48,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+SeedTorusDB();
 app.Run();
