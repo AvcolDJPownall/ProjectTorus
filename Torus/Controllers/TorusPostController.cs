@@ -82,6 +82,9 @@ namespace Torus.Views.Posts
                 }
             }
 
+            var user = await _userManager.GetUserAsync(User);
+            torusPost.AuthorID = user.Id;
+
             if (ModelState.IsValid)
             {
                 _context.Add(torusPost);

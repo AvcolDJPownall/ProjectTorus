@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Torus.Areas.Identity.Data;
 
 namespace Torus.Models
 {
@@ -27,6 +28,9 @@ namespace Torus.Models
         [Required]
         public string Title { get; set; } = "";
         public string Description { get; set; } = "A Torus Asset";
+
+        public string AuthorID { get; set; } = "";
+
 
         [DataType(DataType.Upload)]
         [NotMapped]
