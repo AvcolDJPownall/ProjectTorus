@@ -34,7 +34,7 @@
             string[] randomPlaceholders = new string[4] { "donut.png", "liminal_junk.png", "shader_ngloss.png", "congruent_cheesewedge.png" };
             int imageIndex = new Random().Next(0, Math.Max(randomPlaceholders.Length - 1, 0));
 
-            string fileName = item.ImageFileGUID != "" ? string.Format("item-{0}.png", item.ImageFileGUID) : randomPlaceholders[imageIndex];
+            string fileName = item.ImageFileGUID != "" ? string.Format("{0}.png", item.ImageFileGUID) : randomPlaceholders[imageIndex];
             string imageURL = "/img/items/" + fileName;
 
             string itemPrice = item.Cost.ToString("c2");

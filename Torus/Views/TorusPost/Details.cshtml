@@ -35,7 +35,7 @@
             string buyAction = Model.Cost > 0.0f ? "Purchase" : "Download";
 
 
-            string fileName = Model.ImageFileGUID != "" ? string.Format("item-{0}.png", Model.ImageFileGUID) : randomPlaceholders[imageIndex];
+            string fileName = Model.ImageFileGUID != "" ? string.Format("{0}.png", Model.ImageFileGUID) : randomPlaceholders[imageIndex];
             string imageURL = "/img/items/" + fileName;
         }
 
