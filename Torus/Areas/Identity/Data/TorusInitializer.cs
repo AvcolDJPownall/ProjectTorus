@@ -17,11 +17,13 @@ namespace Torus.Areas.Identity.Data
         {
             if (TorusContext.TorusPost != null && TorusContext.TorusPost.Any()) return;
 
-            TorusPost[] initposts = new TorusPost[2]{
-                new TorusPost() { Title = "Chair", Cost = 1.00f, PostType = AssetType.Mesh, Description = "A simple chair mesh with a low polygon count.", ImageFileGUID = "1c6ce0bf-36c0-4199-9440-e2166e4fecac", AuthorID = Guid.NewGuid().ToString()},
-                new TorusPost() { Title = "Space Junk", Cost = 0.15f, PostType = AssetType.Mesh, Description = "Abstract collection of objects.", ImageFileGUID = "", AuthorID = Guid.NewGuid().ToString()},
+            TorusPost[] initposts = new TorusPost[3]{
+                new TorusPost() { Title = "Chair", Cost = 1.00f, PostType = AssetType.Mesh, Description = "A simple chair mesh with a low polygon count.", ImageFileGUID = "item-1c6ce0bf-36c0-4199-9440-e2166e4fecac", AuthorID = Guid.NewGuid().ToString()},
+                new TorusPost() { Title = "Space Junk", Cost = 0.00f, PostType = AssetType.Mesh, Description = "Abstract collection of objects.", ImageFileGUID = "liminal_junk", AuthorID = Guid.NewGuid().ToString()},
+                new TorusPost() { Title = "Glossy Surface", Cost = 29.99f, PostType = AssetType.Shader, Description = "A high-performance, glossy surface shader with normals.\nTinted by the vertex color.", ImageFileGUID = "shader_ngloss", AuthorID = Guid.NewGuid().ToString()},
             };
 
+            //TorusContext.TorusPost.RemoveRange(TorusContext.TorusPost.AsEnumerable());
             TorusContext.TorusPost.AddRange(initposts);
             TorusContext.SaveChanges();
 
