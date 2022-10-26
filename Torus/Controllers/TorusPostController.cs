@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using Torus.Areas.Identity.Data;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Torus.Areas.Identity.Data;
 using Torus.Data;
 using Torus.Models;
 
@@ -32,8 +26,8 @@ namespace Torus.Views.Posts
         // GET: TorusPost
         public async Task<IActionResult> Index()
         {
-              return _context.TorusPost != null ? 
-                          View(await _context.TorusPost.ToListAsync()) :
+              return _context.TorusPost != null ?
+                          RedirectToAction("Index", "Browse", await _context.TorusPost.ToListAsync()) :
                           Problem("Entity set 'TorusContext.TorusPost'  is null.");
         }
 

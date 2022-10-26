@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Upload Asset</h1>
 
-<h4>TorusPost</h4>
+<h4>Please tell us about your item.</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -28,7 +28,7 @@
                 @Html.DropDownList("PostType", Html.GetEnumSelectList<AssetType>(), "(Select an option)", new {@class="form-control"})
                 <span asp-validation-for="PostType" class="text-danger"></span>
             </div>
-            <div class="input-group mb-3" style="padding-top:8px;">
+            <div class="form-group" style="padding-top:8px;">
                 <label class="control-label">Upload Thumbnail</label>
                 <input asp-for="ImageThumbnail" class="form-control" />
                 <span asp-validation-for="ImageThumbnail" class="text-danger"></span>
