@@ -37,6 +37,11 @@ namespace Torus.Models
         public IFormFile? ImageThumbnail { get; set; }
         public string ImageFileGUID { get; set; } = "";
 
+        [DataType(DataType.Upload)]
+        [NotMapped]
+        public IFormFile? AssetFile { get; set; }
+        public string AssetFileGUID { get; set; } = "";
+
         [Required][DisplayName("Post Type")]
         public AssetType PostType { get; set; }
 

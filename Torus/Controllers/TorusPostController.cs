@@ -62,17 +62,40 @@ namespace Torus.Views.Posts
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PostID,Title,Description,PostType,ImageThumbnail,Cost,Likes,Dislikes")] TorusPost torusPost, [FromForm]IFormFile ImageThumbnail)
+        public async Task<IActionResult> Create([Bind("PostID,Title,Description,PostType,ImageThumbnail,Cost,Likes,Dislikes")] TorusPost torusPost, [FromForm]IFormFile ImageThumbnail, [FromForm]IFormFile AssetFile)
         {
-            string path = Path.Combine(Environment.CurrentDirectory, "wwwroot/img/items");
+            string imgpath = Path.Combine(Environment.CurrentDirectory, "wwwroot/img/items");
             string imageGUID = "item-" + Guid.NewGuid().ToString();
-            string sanitizedname = imageGUID + ".png";
-            using (var fileStream = new FileStream(Path.Combine(path, sanitizedname), FileMode.Create))
+            string imgFileName = imageGUID + ".png";
+
+            // Write image file to disk/cdn's filesystem
+            using (var fileStream = new FileStream(Path.Combine(imgpath, imgFileName), FileMode.Create))
             {
                 if (ImageThumbnail != null && ImageThumbnail.Length > 0)
                 {
                     await ImageThumbnail.CopyToAsync(fileStream);
                     torusPost.ImageFileGUID = imageGUID;
+                }
+            }
+
+            // Sanitize user's filename input
+            string assetpath = Path.Combine(Environment.CurrentDirectory, "wwwroot/cdn/downloads");
+            string assetFileName = torusPost.Title + "-" + imageGUID.Split('-').Last();
+            IEnumerable<char> invalidchars = Path.GetInvalidFileNameChars().Intersect(assetFileName.ToCharArray());
+            foreach (char character in invalidchars)
+            {
+                assetFileName = assetFileName.Replace(character, '-');
+            }
+            assetFileName = assetFileName.Replace(' ', '_');
+            assetFileName += "." + AssetFile.FileName.Split('.').LastOrDefault("asset");
+
+            // Write uploaded asset file to disk/cdn's filesystem
+            using (var fileStream = new FileStream(Path.Combine(assetpath, assetFileName), FileMode.Create))
+            {
+                if (AssetFile != null && AssetFile.Length > 0)
+                {
+                    await AssetFile.CopyToAsync(fileStream);
+                    torusPost.AssetFileGUID = assetFileName;
                 }
             }
 

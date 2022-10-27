@@ -34,9 +34,11 @@
             int imageIndex = new Random().Next(0, Math.Max(randomPlaceholders.Length - 1, 0));
             string buyAction = Model.Cost > 0.0f ? "Purchase" : "Download";
 
+            string imageName = Model.ImageFileGUID != "" ? string.Format("{0}.png", Model.ImageFileGUID) : randomPlaceholders[imageIndex];
+            string imageURL = "/img/items/" + imageName;
 
-            string fileName = Model.ImageFileGUID != "" ? string.Format("{0}.png", Model.ImageFileGUID) : randomPlaceholders[imageIndex];
-            string imageURL = "/img/items/" + fileName;
+            string fileName = Model.AssetFileGUID;
+            string fileURL = "/cdn/downloads/" + fileName;
         }
 
     <div class="row">
@@ -46,7 +48,7 @@
             <div class="item-body">
               <h4 class="card-title">@Model.Title</h4>
               <p class="card-text">@Model.Description</p>
-              <a href="#" class="btn btn-primary">@buyAction</a>
+              <a href="@fileURL" download="@fileName" class="btn btn-primary">@buyAction</a>
             </div>
           </div>
         </div>
