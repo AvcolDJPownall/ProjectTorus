@@ -5,6 +5,7 @@ using Torus.Areas.Identity.Data;
 using Torus.Data;
 using Torus.Models;
 using SkiaSharp;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Torus.Views.Posts
 {
@@ -51,6 +52,7 @@ namespace Torus.Views.Posts
         }
 
         // GET: TorusPost/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
