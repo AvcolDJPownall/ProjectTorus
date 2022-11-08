@@ -11,6 +11,13 @@ builder.Services.AddDbContext<TorusContext>(options =>
 builder.Services.AddDefaultIdentity<TorusUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<TorusContext>();;
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
+});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
