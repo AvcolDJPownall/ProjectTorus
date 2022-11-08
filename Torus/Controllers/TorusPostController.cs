@@ -4,8 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Torus.Areas.Identity.Data;
 using Torus.Data;
 using Torus.Models;
-
-
+using SkiaSharp;
 
 namespace Torus.Views.Posts
 {
@@ -73,8 +72,15 @@ namespace Torus.Views.Posts
             {
                 if (ImageThumbnail != null && ImageThumbnail.Length > 0)
                 {
-                    await ImageThumbnail.CopyToAsync(fileStream);
-                    torusPost.ImageFileGUID = imageGUID;
+                    var imgstream = new SKManagedStream(ImageThumbnail.OpenReadStream());
+                    var image = SKBitmap.Decode(imgstream);
+                    if (image == null) ModelState.AddModelError("ImageThumbnail", "Your thumbnail's format is not supported.");
+                    else if (image.Width - image.Height != 0) ModelState.AddModelError("ImageThumbnail", "Your thumbnail must have an aspect ratio of 1:1.");
+                    else {
+                        await ImageThumbnail.CopyToAsync(fileStream);
+                        torusPost.ImageFileGUID = imageGUID;
+                    }
+                    imgstream.Dispose();
                 }
             }
 

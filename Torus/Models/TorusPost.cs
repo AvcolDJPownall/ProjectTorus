@@ -33,6 +33,7 @@ namespace Torus.Models
 
 
         [DataType(DataType.Upload)]
+        [Required]
         [NotMapped]
         public IFormFile? ImageThumbnail { get; set; }
         public string ImageFileGUID { get; set; } = "";
