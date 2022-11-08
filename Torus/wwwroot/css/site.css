@@ -14,5 +14,10 @@ html {
 }
 
 body {
+  font-family:Lato,Helvetica,Arial,sans-serif;
   margin-bottom: 60px;
+  background: radial-gradient(
+      #FFF,
+      #EEE
+  );
 }
